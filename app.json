@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "MamaVR AI",
+    "slug": "mamavr-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "backgroundColor": "#1565C0"
+    },
+    "android": {
+      "package": "org.mamavr.ai",
+      "permissions": ["CAMERA", "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO"]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSCameraUsageDescription": "MamaVR AI uses the camera to capture patient photos and media for health education content.",
+        "NSPhotoLibraryUsageDescription": "MamaVR AI needs access to your media library so you can upload images, logos and videos."
+      }
+    },
+    "plugins": [
+      "expo-sqlite",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "MamaVR AI needs access to your media library so you can upload images, logos and videos.",
+          "cameraPermission": "MamaVR AI uses the camera to capture patient photos."
+        }
+      ]
+    ]
+  }
+}
