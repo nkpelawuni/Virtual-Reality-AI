@@ -243,7 +243,21 @@ export type MediaOwnerType =
   | 'app_logo'
   | 'user_avatar'
   | 'vr_video'
-  | 'vr_thumbnail';
+  | 'vr_thumbnail'
+  | 'team_photo';
+
+/** Project team profile (§11.16) shown on the About / Project Team screen. */
+export interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  qualification: string;
+  responsibilities: string[];
+  photoUri: string | null;
+  /** Team lead renders at the top of the structure chart. */
+  isLead: boolean;
+  displayOrder: number;
+}
 
 export interface MediaAsset {
   id: string;

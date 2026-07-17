@@ -160,6 +160,17 @@ export function initDatabase(): void {
       created_at TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS team_members (
+      id TEXT PRIMARY KEY,
+      name TEXT NOT NULL,
+      role TEXT NOT NULL,
+      qualification TEXT NOT NULL DEFAULT '',
+      responsibilities TEXT NOT NULL DEFAULT '[]',
+      photo_uri TEXT,
+      is_lead INTEGER NOT NULL DEFAULT 0,
+      display_order INTEGER NOT NULL DEFAULT 0
+    );
+
     CREATE TABLE IF NOT EXISTS app_settings (
       key TEXT PRIMARY KEY,
       value TEXT NOT NULL

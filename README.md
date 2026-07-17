@@ -124,6 +124,50 @@ reported on the dashboard.
 - Educational VR content should be reviewed by obstetric and public-health experts before
   publication (§7.11).
 
+## Project Team
+
+The MamaVR AI project is led by a multidisciplinary team with expertise in healthcare, software
+engineering, cloud computing, and community engagement. The team combines clinical knowledge with
+technical innovation to develop a practical, user-centred solution for improving maternal and
+child healthcare.
+
+| Team Member | Role | Qualification |
+|---|---|---|
+| **Abdul Wahab Ibrahim** | Team Lead | BSc Nursing |
+| **Osman Abdul-Wahab** | Technical Lead | AWS Cloud Architect / Software Engineer |
+| **Adams Rashida** | Communications & Outreach Officer | BSc Public Health Nursing |
+
+```
+                MamaVR AI Team
+              Abdul Wahab Ibrahim
+                   Team Lead
+                       │
+        ┌──────────────┴──────────────┐
+        ▼                             ▼
+ Osman Abdul-Wahab             Adams Rashida
+   Technical Lead        Communications & Outreach
+```
+
+**Abdul Wahab Ibrahim — Team Lead** (BSc Nursing): overall project leadership and coordination,
+clinical oversight of maternal health workflows, product vision and strategy, stakeholder
+engagement and partnerships, AI clinical rule validation, and monitoring of implementation and
+quality assurance.
+
+**Osman Abdul-Wahab — Technical Lead** (AWS Cloud Architect / Software Engineer): software
+architecture design, mobile application development, backend API development, cloud infrastructure
+and deployment, database architecture, security implementation, and system integration and
+maintenance.
+
+**Adams Rashida — Communications & Outreach Officer** (BSc Public Health Nursing): community
+engagement, user education and awareness, stakeholder communication, health promotion content
+development, feedback collection during pilot implementation, and coordination of outreach and
+dissemination activities.
+
+Team profiles live in the app under **Profile → Project Team** (and on the Administrator
+dashboard). Administrators upload each member's professional passport photograph directly on that
+screen — the photos flow through the same Media Manager pipeline as all other uploads and replace
+the "[Insert Photo Here]" placeholders from the project document.
+
 ## Compliance Notes
 
 Designed with the Ghana Data Protection Act, 2012 (Act 843) in mind: minimum-necessary data

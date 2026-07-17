@@ -79,6 +79,7 @@ export function AdminDashboard() {
       <Text style={[styles.sectionLabel, { color: theme.colors.text }]}>Administration</Text>
       <Button title="Audit Logs" icon="document-text-outline" variant="secondary" onPress={() => navigation.navigate('AuditLogs')} />
       <Button title="Branding & App Logo" icon="color-palette-outline" variant="secondary" onPress={() => navigation.navigate('Branding')} />
+      <Button title="Project Team" icon="people-circle-outline" variant="secondary" onPress={() => navigation.navigate('Team')} />
     </Screen>
   );
 }

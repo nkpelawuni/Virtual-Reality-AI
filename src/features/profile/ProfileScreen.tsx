@@ -1,6 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+
+import { MainStackParamList } from '@/navigation/types';
 
 import { MediaPicker } from '@/components/MediaPicker';
 import { Button, Card, Field, KeyValueRow, Screen, ScreenTitle, SectionHeading, SegmentedControl } from '@/components/ui';
@@ -13,6 +17,7 @@ import { spacing, typography } from '@/theme/theme';
 export function ProfileScreen() {
   const { theme, mode, setMode } = useTheme();
   const { user, logout, refreshUser } = useAuth();
+  const navigation = useNavigation<NativeStackNavigationProp<MainStackParamList>>();
   const [editingAvatar, setEditingAvatar] = useState(false);
   const [changingPassword, setChangingPassword] = useState(false);
   const [currentPassword, setCurrentPassword] = useState('');
@@ -132,6 +137,14 @@ export function ProfileScreen() {
       ) : (
         <Button title="Change Password" variant="secondary" icon="key-outline" onPress={() => setChangingPassword(true)} />
       )}
+
+      <SectionHeading>About</SectionHeading>
+      <Button
+        title="Project Team"
+        variant="secondary"
+        icon="people-circle-outline"
+        onPress={() => navigation.navigate('Team')}
+      />
 
       <Button
         title="Log Out"

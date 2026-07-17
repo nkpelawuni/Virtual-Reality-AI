@@ -36,6 +36,7 @@ import { HighRiskListScreen } from '@/features/patients/HighRiskListScreen';
 import { PatientDetailScreen } from '@/features/patients/PatientDetailScreen';
 import { PatientRegistrationScreen } from '@/features/patients/PatientRegistrationScreen';
 import { ReferralScreen } from '@/features/referrals/ReferralScreen';
+import { TeamScreen } from '@/features/team/TeamScreen';
 import { VrPlayerScreen } from '@/features/vr/VrPlayerScreen';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -147,6 +148,7 @@ export function RootNavigator() {
           <MainStack.Screen name="VrModuleForm" component={VrModuleFormScreen} options={{ title: 'New VR Module' }} />
           <MainStack.Screen name="AuditLogs" component={AuditLogsScreen} options={{ title: 'Audit Logs' }} />
           <MainStack.Screen name="Branding" component={BrandingScreen} options={{ title: 'Branding' }} />
+          <MainStack.Screen name="Team" component={TeamScreen} options={{ title: 'Project Team' }} />
         </MainStack.Navigator>
       )}
     </NavigationContainer>

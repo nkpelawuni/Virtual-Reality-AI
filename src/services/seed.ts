@@ -6,6 +6,7 @@ import * as Crypto from 'expo-crypto';
 
 import { hashPassword } from './auth';
 import { db, getSetting, nowIso, setSetting } from './database';
+import { seedTeamMembers } from './team';
 
 const SEED_VERSION = '1';
 
@@ -100,6 +101,10 @@ const VR_MODULES: Array<{
 ];
 
 export async function seedIfNeeded(): Promise<void> {
+  // Team profiles use idempotent inserts, so they run on every start and
+  // reach existing installations without a version bump.
+  seedTeamMembers();
+
   if (getSetting('seed_version') === SEED_VERSION) return;
   const now = nowIso();
 

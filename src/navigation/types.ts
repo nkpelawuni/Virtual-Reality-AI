@@ -21,6 +21,7 @@ export type MainStackParamList = {
   VrModuleForm: { moduleId?: string };
   AuditLogs: undefined;
   Branding: undefined;
+  Team: undefined;
 };
 
 export type HealthcareTabParamList = {
