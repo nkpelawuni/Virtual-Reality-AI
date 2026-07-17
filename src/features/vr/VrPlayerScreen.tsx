@@ -7,7 +7,7 @@
  */
 import { Ionicons } from '@expo/vector-icons';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
-import { ResizeMode, Video } from 'expo-av';
+import { useVideoPlayer, VideoView } from 'expo-video';
 import React, { useEffect, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -36,7 +36,11 @@ export function VrPlayerScreen() {
   const [progress, setProgress] = useState(0);
   const [narrationIndex, setNarrationIndex] = useState(0);
   const sessionIdRef = useRef<string | null>(null);
-  const videoRef = useRef<Video>(null);
+
+  const player = useVideoPlayer(module?.videoUri ?? null, (p) => {
+    p.timeUpdateEventInterval = 1;
+    p.play();
+  });
 
   useEffect(() => {
     if (user && module) {
@@ -52,6 +56,27 @@ export function VrPlayerScreen() {
     // Session is created once on entry; language changes are tracked in-session.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Video mode: track playback progress and completion.
+  useEffect(() => {
+    if (!module?.videoUri) return;
+    const timeSub = player.addListener('timeUpdate', ({ currentTime }) => {
+      const duration = player.duration;
+      if (!duration || duration <= 0) return;
+      const pct = Math.min(Math.round((currentTime / duration) * 100), 100);
+      setProgress(pct);
+      if (sessionIdRef.current) updateVrSession(sessionIdRef.current, pct, pct >= 99);
+    });
+    const endSub = player.addListener('playToEnd', () => {
+      setPlaying(false);
+      setProgress(100);
+      if (sessionIdRef.current) updateVrSession(sessionIdRef.current, 100, true);
+    });
+    return () => {
+      timeSub.remove();
+      endSub.remove();
+    };
+  }, [player, module?.videoUri]);
 
   // Guided narration mode: advance through key messages on a timer.
   useEffect(() => {
@@ -88,22 +113,22 @@ export function VrPlayerScreen() {
     navigation.goBack();
   };
 
-  const replay = async () => {
+  const replay = () => {
     setNarrationIndex(0);
     setProgress(0);
     setPlaying(true);
-    if (module.videoUri && videoRef.current) {
-      await videoRef.current.setPositionAsync(0);
-      await videoRef.current.playAsync();
+    if (module.videoUri) {
+      player.currentTime = 0;
+      player.play();
     }
   };
 
-  const togglePlay = async () => {
+  const togglePlay = () => {
     const next = !playing;
     setPlaying(next);
-    if (module.videoUri && videoRef.current) {
-      if (next) await videoRef.current.playAsync();
-      else await videoRef.current.pauseAsync();
+    if (module.videoUri) {
+      if (next) player.play();
+      else player.pause();
     }
   };
 
@@ -132,22 +157,11 @@ export function VrPlayerScreen() {
       {/* Immersive scene */}
       <View style={styles.scene}>
         {module.videoUri ? (
-          <Video
-            ref={videoRef}
-            source={{ uri: module.videoUri }}
+          <VideoView
+            player={player}
             style={StyleSheet.absoluteFill}
-            resizeMode={ResizeMode.CONTAIN}
-            shouldPlay={playing}
-            isLooping={false}
-            onPlaybackStatusUpdate={(status) => {
-              if (!status.isLoaded || !status.durationMillis) return;
-              const pct = Math.round((status.positionMillis / status.durationMillis) * 100);
-              setProgress(pct);
-              if (sessionIdRef.current) {
-                updateVrSession(sessionIdRef.current, pct, status.didJustFinish === true || pct >= 99);
-              }
-              if (status.didJustFinish) setPlaying(false);
-            }}
+            contentFit="contain"
+            nativeControls={false}
           />
         ) : (
           <View style={styles.narration}>

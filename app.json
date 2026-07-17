@@ -11,7 +11,11 @@
     },
     "android": {
       "package": "org.mamavr.ai",
-      "permissions": ["CAMERA", "READ_MEDIA_IMAGES", "READ_MEDIA_VIDEO"]
+      "permissions": [
+        "CAMERA",
+        "READ_MEDIA_IMAGES",
+        "READ_MEDIA_VIDEO"
+      ]
     },
     "ios": {
       "supportsTablet": true,
@@ -28,7 +32,8 @@
           "photosPermission": "MamaVR AI needs access to your media library so you can upload images, logos and videos.",
           "cameraPermission": "MamaVR AI uses the camera to capture patient photos."
         }
-      ]
+      ],
+      "expo-video"
     ]
   }
 }
