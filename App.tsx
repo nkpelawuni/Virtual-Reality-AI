@@ -9,12 +9,15 @@ import { initDatabase } from '@/services/database';
 import { seedIfNeeded } from '@/services/seed';
 import { ThemeProvider } from '@/theme/ThemeContext';
 
+// Create the schema synchronously at module load, before anything renders,
+// so no screen can ever query a table that does not exist yet.
+initDatabase();
+
 export default function App() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
     (async () => {
-      initDatabase();
       await seedIfNeeded();
       setReady(true);
     })();

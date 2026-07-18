@@ -184,11 +184,17 @@ export function initDatabase(): void {
 }
 
 export function getSetting(key: string): string | null {
-  const row = db.getFirstSync<{ value: string }>(
-    'SELECT value FROM app_settings WHERE key = ?',
-    [key]
-  );
-  return row?.value ?? null;
+  try {
+    const row = db.getFirstSync<{ value: string }>(
+      'SELECT value FROM app_settings WHERE key = ?',
+      [key]
+    );
+    return row?.value ?? null;
+  } catch {
+    // The settings table may not exist yet on the very first launch,
+    // before initDatabase() has run. Treat that as "no value stored".
+    return null;
+  }
 }
 
 export function setSetting(key: string, value: string): void {
